@@ -38,10 +38,8 @@ const query = ref("")
 onMounted(() => {
   fetch("/shop_list.json").then((resp) => {
     if (resp.body === null) return;
-
-    resp.body.getReader().read().then((result) => {
-      const s = new TextDecoder().decode(result.value);
-      shopList.value = JSON.parse(s);
+    resp.json().then((data) => {
+      shopList.value = data;
     })
   })
 })
